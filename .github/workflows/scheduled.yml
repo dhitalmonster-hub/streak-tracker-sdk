@@ -1,0 +1,26 @@
+name: Scheduled Health Check
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: npm test
+      - run: npm run build
+      - name: Verify published package installs correctly
+        continue-on-error: true
+        run: |
+          mkdir -p /tmp/verify-install
+          cd /tmp/verify-install
+          npm init -y
+          npm install streak-tracker-sdk
+          node -e "const sdk = require('streak-tracker-sdk'); console.log('streak-tracker-sdk exports:', Object.keys(sdk).join(', '))"
