@@ -1,6 +1,6 @@
 {
   "name": "streak-tracker-sdk",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "TypeScript SDK for on-chain streak tracking on the Stacks blockchain — record check-ins, query streaks, leaderboards.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
